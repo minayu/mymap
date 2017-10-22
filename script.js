@@ -1,39 +1,37 @@
-//mysql接続
-var connection = require('./app/mysqlConnection.js');
-//　クエリ
-// var query;
-connection.query('SELECT na.id, na.name, ad.address FROM store_name na, store_address ad WHERE na.id = ad.id;', function (err, rows, fields) {
-  if (err) { console.log('err: ' + err); } 
-  console.log('name: ' + rows[0].name);
-  console.log('address: ' + rows[0].addre);
-  markerData[0]['name'] = rows[0].name;
-  markerData[0]['address'] = rows[0].address;
-});
-
 var map;
 var marker = [];
 var infoWindow = [];
 var geocoder;
 var increment = 0;
-var markerData = [ // マーカーを立てる場所名・緯度・経度
-  {
-       name: 'ウェアハウス 入谷店',
-    address: '東京都足立区入谷7-8-11',
-    	lat: 0,
-		lng: 0
-  }, {
-       name: 'ウェアハウス 保木間店',
-    address: '東京都足立区保木間1-1-19',
-    	lat: 0,
-		lng: 0
-  }, {
-       name: 'セガ竹の塚',
-    address: '東京都足立区竹の塚6-8-6',
-    	lat: 0,
-		lng: 0
+var markerData = {};
 
-  }
-];
+$.getJSON("app.js", {name: "markerJson"}, function(data){
+  markerData = JSON.parse(data.markerJson);
+});
+
+for (var i in markerData) {
+  console.log(markerData[i]['name']);
+  console.log(markerData[i]['address']);
+}
+// var markerData = [ // マーカーを立てる場所名・緯度・経度
+//   {
+//        name: 'ウェアハウス 入谷店',
+//     address: '東京都足立区入谷7-8-11',
+//     	lat: 0,
+// 		lng: 0
+//   }, {
+//        name: 'ウェアハウス 保木間店',
+//     address: '東京都足立区保木間1-1-19',
+//     	lat: 0,
+// 		lng: 0
+//   }, {
+//        name: 'セガ竹の塚',
+//     address: '東京都足立区竹の塚6-8-6',
+//     	lat: 0,
+// 		lng: 0
+
+//   }
+// ];
 
 // ピン作成
 function initMap() {
