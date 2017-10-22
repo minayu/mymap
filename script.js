@@ -5,7 +5,7 @@ var geocoder;
 var increment = 0;
 var markerData = {};
 
-$.getJSON("app.js", {name: "markerJson"}, function(data){
+$.getJSON("app.js", function(data){
   markerData = JSON.parse(data.markerJson);
 });
 
